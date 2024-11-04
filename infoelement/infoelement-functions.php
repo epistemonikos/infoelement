@@ -62,7 +62,7 @@ function infoelement_justification_options($data) {
         if ($datapoint->show) {
             $r .= '<li class="active">'.$datapoint->section->en.'</li>';
         } else {
-            $r .= '<li style="color: #ccc;">'.$datapoint->section->en.'</li>';
+            $r .= '<li>'.$datapoint->section->en.'</li>';
         }
     }
     return $r;

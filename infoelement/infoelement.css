@@ -1,0 +1,16 @@
+.infoelement > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.infoelement > ul > li {
+    margin: 0;
+    padding: 0 1rem 0 0;
+    font-size: 1.5rem;
+    display: inline;
+    color: #DDDDDD;
+}
+.infoelement > ul > li.active {
+    font-weight: bold;
+    color: #000000;
+}
