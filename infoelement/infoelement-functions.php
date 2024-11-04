@@ -48,7 +48,7 @@ function infoelement_shortcode( $atts ) {
         }
         if ( $datapoint->element_id === 'conclusion-justifictaion-options') {
             $r .= '<h4>Conclusion Justification Options</h4>';
-            $r .= '<ul>'.justification_options($datapoint->value).'</ul>';
+            $r .= '<ul>'.infoelement_justification_options($datapoint->value).'</ul>';
         }
     }
 
@@ -56,7 +56,7 @@ function infoelement_shortcode( $atts ) {
 
 }
 
-function justification_options($data) {
+function infoelement_justification_options($data) {
     $r = '';
     foreach ($data as $datapoint) {
         if ($datapoint->show) {
