@@ -21,10 +21,32 @@ function infoelement_shortcode( $atts ) {
 			'organisation' => '',
 			'project' => '',
 			'framework' => '',
+            'url' => ''
 		),
 		$atts,
 		'infoelement'
 	);
+
+    // check at least one of the attributes is set
+    if (empty($atts['organisation']) && empty($atts['project']) && empty($atts['framework']) && empty($atts['url'])) {
+        return '<div class="infoelement">Please provide at least one of the following attributes: organisation, project, framework or url</div>';
+    }
+    // evaluate if the url is empty and the organisation, project and framework have at least 20 characters
+    if (empty($atts['url']) && (strlen($atts['organisation']) < 20 || strlen($atts['project']) < 20 || strlen($atts['framework']) < 20)) {
+        return '<div class="infoelement">Please provide a valid organisation, project and framework</div>';
+    }
+    
+    // evaluate if the url is valid and start with https://new-ietd-test.epistemonikos.org or https://new-ietd.epistemonikos.org
+    if ($atts['url'] && !preg_match('/^https:\/\/new-ietd(-test)?.epistemonikos.org/', $atts['url'])) {
+        return '<div class="infoelement">Please provide a valid url</div>';
+    }
+
+    if ($atts['url']) {
+        $url_parts = explode('/', explode('?', $atts['url'])[0]);
+        $atts['organisation'] = $url_parts[4];
+        $atts['project'] = $url_parts[6];
+        $atts['framework'] = $url_parts[8];
+    }
 
     $response = wp_remote_get( URL_BASE . '?organisation='.$atts['organisation'].'&project='.$atts['project'].'&framework='.$atts['framework'] );
     $body     = wp_remote_retrieve_body( $response );
